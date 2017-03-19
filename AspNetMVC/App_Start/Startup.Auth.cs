@@ -54,9 +54,9 @@ namespace AspNetMVC
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "257448518049959",
+               appSecret: "f7b6b55f8d75a0ea2423601d19f2c076");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
