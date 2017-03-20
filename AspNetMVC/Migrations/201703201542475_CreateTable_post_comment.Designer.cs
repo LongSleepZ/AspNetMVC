@@ -7,13 +7,13 @@ namespace AspNetMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateTable_Post_Comment : IMigrationMetadata
+    public sealed partial class CreateTable_post_comment : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTable_Post_Comment));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTable_post_comment));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703190544225_CreateTable_Post_Comment"; }
+            get { return "201703201542475_CreateTable_post_comment"; }
         }
         
         string IMigrationMetadata.Source

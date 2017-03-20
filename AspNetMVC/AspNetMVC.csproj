@@ -201,10 +201,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,9 +210,9 @@
     <Compile Include="Migrations\201703180545584_InitialCreate.Designer.cs">
       <DependentUpon>201703180545584_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703190544225_CreateTable_Post_Comment.cs" />
-    <Compile Include="Migrations\201703190544225_CreateTable_Post_Comment.Designer.cs">
-      <DependentUpon>201703190544225_CreateTable_Post_Comment.cs</DependentUpon>
+    <Compile Include="Migrations\201703201542475_CreateTable_post_comment.cs" />
+    <Compile Include="Migrations\201703201542475_CreateTable_post_comment.Designer.cs">
+      <DependentUpon>201703201542475_CreateTable_post_comment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -325,8 +323,8 @@
     <EmbeddedResource Include="Migrations\201703180545584_InitialCreate.resx">
       <DependentUpon>201703180545584_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703190544225_CreateTable_Post_Comment.resx">
-      <DependentUpon>201703190544225_CreateTable_Post_Comment.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703201542475_CreateTable_post_comment.resx">
+      <DependentUpon>201703201542475_CreateTable_post_comment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

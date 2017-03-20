@@ -27,11 +27,14 @@ namespace AspNetMVC.Models
 
         public static ApplicationDbContext Create()
         {
+
             return new ApplicationDbContext();
         }
 
         public System.Data.Entity.DbSet<AspNetMVC.Models.Post> Posts { get; set; }
 
         public System.Data.Entity.DbSet<AspNetMVC.Models.Comment> Comments { get; set; }
+
+
     }
 }
