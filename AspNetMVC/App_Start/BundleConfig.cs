@@ -19,13 +19,18 @@ namespace AspNetMVC
                         "~/js/lib/dataTables.bootstrap.min.js",
                         "~/js/lib/dataTables.colReorder.min.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new ScriptBundle("~/bundles/cleanBlog").Include(
+                        "~/js/lib/clean-blog.min.js"));
+
+           bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/css/bootstrap-theme.min.css",
                         "~/css/bootstrap.min.css",
                         "~/css/jquery.dataTables.min.css",
                         "~/css/jquery.dataTables_themeroller.css",
                         "~/css/dataTables.bootstrap.min.css",
                         "~/css/colReorder.bootstrap.min.css",
+                        "~/css/font-awesome.min.css",
+                        "~/css/clean-blog.min.css",
                         "~/css/site.css"));
         }
     }
