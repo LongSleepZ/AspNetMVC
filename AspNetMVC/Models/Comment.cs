@@ -9,11 +9,6 @@ namespace AspNetMVC.Models
 {
     public class Comment
     {
-        public Comment()
-        {
-            Posts = new Post();
-        }
-
         [Key]
         public int id { get; set; }
 
@@ -37,7 +32,7 @@ namespace AspNetMVC.Models
         public int post_id { get; set; }
 
         
-        public Post Posts { get; set; }
+        public virtual  Post Posts { get; set; }
     }
 
 }
