@@ -1,63 +1,59 @@
 ﻿@model IEnumerable<AspNetMVC.Models.Post>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = ViewBag.PostType;
 }
 
-<h2>Index</h2>
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('@Url.Content("~/images/home-bg.jpg")') ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>@ViewBag.PostType</h1>
+                    <hr class="small">
+                    <span class="subheading">歡迎瀏覽 @ViewBag.PostType</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sub_title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.is_feature)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.page_view)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_id)
-        </th>
-        <th></th>
-    </tr>
+<!-- Post Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sub_title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.is_feature)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.page_view)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+            @Html.Partial("_NotificationPartial")
 
-</table>
+            @if (Request.IsAuthenticated)
+            {
+                <div class="text-right">
+                    <a href="@Url.Action("Create","Posts")" class="btn btn-primary" role="button">新增</a>
+                </div>
+            }
+
+            @foreach (var item in Model)
+            {
+                <div class="post-preview">
+                    <a href="@Url.Action("Details","Posts",new {id=item.id})">
+                        >
+                        <h2 class="post-title">
+                            @item.title
+                        </h2>
+                    </a>
+                    <h3 class="post-subtitle"></h3>
+                    <p class="post-meta">
+                        由
+                        <a href="@Url.Action("User","Posts",new {id= item.user_id}) ">@item.user.UserName</a>
+                        發表於 @item.created_at.ToString()
+                    </p>
+                </div>
+                <hr>
+            }
+            <!-- Pager -->
+
+        </div>
+    </div>
+</div>

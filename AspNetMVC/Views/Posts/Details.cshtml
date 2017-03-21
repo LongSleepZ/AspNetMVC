@@ -1,66 +1,104 @@
-﻿@model AspNetMVC.Models.Post
+﻿@model AspNetMVC.ViewModels.PostsDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = ViewBag.PostType;
 }
 
-<h2>Details</h2>
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('@Url.Content("~/images/post-bg.jpg")') ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>@Model.post .title</h1>
+                    <h2 class="subheading">@Model.post .sub_title</h2>
+                    <span class="meta">
+                        由
+                        <a href="@Url.Action("User", "Posts", new { id = Model.post .user_id }) ">@Model.post.user.UserName</a>
+                        發表於 @Model.post .created_at.ToString()
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
+                @Html.Partial("_NotificationPartial")
 
-        <dt>
-            @Html.DisplayNameFor(model => model.sub_title)
-        </dt>
+                @if (Request.IsAuthenticated || Model.post.user.Id != "1")
+                {  @*$post->user->id == Auth::user()->id){*@
+                    <div class="text-right" style="margin-bottom: 50px;">
+                        <a href="@Url.Action("Edit", "Posts", new { id = Model.post.id })" class="btn btn-primary">編輯</a>
+                        <a href="@Url.Action("Delete", "Posts", new { id = Model.post.id })" class="btn btn-primary">刪除</a>
+                    </div>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.sub_title)
-        </dd>
+                <div style="margin-bottom: 30px;">
+                    @Model.post.content
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.content)
-        </dt>
+                <!-- Comments Form -->
+                <div class="well">
+                    <h4>留下您的意見：</h4>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <dd>
-            @Html.DisplayFor(model => model.content)
-        </dd>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.comment.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.comment.name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.comment.name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.is_feature)
-        </dt>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.comment.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.comment.email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.comment.email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.is_feature)
-        </dd>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.comment.content, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.comment.content, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.comment.content, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.page_view)
-        </dt>
+                        <div class="form-group">
+                            <input type="submit" value="送出" class="btn btn-primary" />
+                        </div>
+                    }
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.page_view)
-        </dd>
+                <hr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_id)
-        </dt>
+                <!-- Posted Comments -->
+                @foreach (var item in Model.post.Comments)
+                {
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                @item.name (@item.email)
+                                <small>@item.created_at.ToString()</small>
+                            </h4>
+                            @item.content
+                        </div>
+                    </div>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.user_id)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </div>
+        </div>
+    </div>
+</article>

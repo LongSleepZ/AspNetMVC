@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspNetMVC.Models;
+using AspNetMVC.ViewModels;
 
 namespace AspNetMVC.Controllers
 {
@@ -17,6 +18,8 @@ namespace AspNetMVC.Controllers
         // GET: Posts
         public ActionResult Index()
         {
+            ViewBag.PostType = "文章總覽";
+
             return View(db.Posts.ToList());
         }
 
@@ -32,7 +35,11 @@ namespace AspNetMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
+
+            PostsDetailsViewModel viewModel=new PostsDetailsViewModel();
+            viewModel.post = post;
+            viewModel.comment = new Comment();
+            return View(viewModel);
         }
 
         // GET: Posts/Create
