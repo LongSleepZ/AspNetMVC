@@ -38,7 +38,6 @@
             {
                 <div class="post-preview">
                     <a href="@Url.Action("Details","Posts",new {id=item.id})">
-                        >
                         <h2 class="post-title">
                             @item.title
                         </h2>
@@ -46,7 +45,7 @@
                     <h3 class="post-subtitle"></h3>
                     <p class="post-meta">
                         由
-                        <a href="@Url.Action("User","Posts",new {id= item.user_id}) ">@item.user.UserName</a>
+                        <a href="@Url.Action("_User","Posts",new {id= item.user_id}) ">@item.user.UserName</a>
                         發表於 @item.created_at.ToString()
                     </p>
                 </div>

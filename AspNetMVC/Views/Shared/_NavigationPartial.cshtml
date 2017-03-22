@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
@@ -10,22 +10,38 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="@Url.Action("Index","Home")" >AspNet MVC</a>
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">AspNet MVC</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink("關於本站", "About", "Home")</li>
-                <li>@Html.ActionLink("文章總覽", "Index", "Posts")</li>
-                <li>@Html.ActionLink("熱門文章Hot", "Index", "Posts")</li>
-                <li>@Html.ActionLink("隨機文章random", "Index", "Posts")</li>
-                @if (Request.IsAuthenticated)
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("關於本站", "About", "Home")</li>
+                    <li>@Html.ActionLink("文章總覽", "Index", "Posts")</li>
+                    <li>@Html.ActionLink("熱門文章", "Hot", "Posts")</li>
+                    <li>@Html.ActionLink("隨機文章", "Random", "Posts")</li>
+
+                    @if (Request.IsAuthenticated)
                 {
-                    <li>@Html.ActionLink("我的文章my", "Index", "Posts")</li>
-                }
-                @Html.Partial("_LoginPartial")
-            </ul>
+                        <li>@Html.ActionLink("我的文章", "My", "Posts")</li>
+
+                        @Html.AntiForgeryToken()
+                        <li>
+                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        </li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    }
+
+                </ul>
+            }
         </div>
     </div>
-    </nav>
+</nav>

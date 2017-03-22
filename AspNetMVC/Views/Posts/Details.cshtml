@@ -1,4 +1,5 @@
-﻿@model AspNetMVC.ViewModels.PostsDetailsViewModel
+﻿@using Microsoft.AspNet.Identity
+@model AspNetMVC.ViewModels.PostsDetailsViewModel
 
 @{
     ViewBag.Title = ViewBag.PostType;
@@ -11,12 +12,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading">
-                    <h1>@Model.post .title</h1>
-                    <h2 class="subheading">@Model.post .sub_title</h2>
+                    <h1>@Model.post.title</h1>
+                    <h2 class="subheading">@Model.post.sub_title</h2>
                     <span class="meta">
                         由
-                        <a href="@Url.Action("User", "Posts", new { id = Model.post .user_id }) ">@Model.post.user.UserName</a>
-                        發表於 @Model.post .created_at.ToString()
+                        <a href="@Url.Action("_User", "Posts", new { id = Model.post.user_id }) ">@Model.post.user.UserName</a>
+                        發表於 @Model.post.created_at.ToString()
                     </span>
                 </div>
             </div>
@@ -32,8 +33,8 @@
 
                 @Html.Partial("_NotificationPartial")
 
-                @if (Request.IsAuthenticated || Model.post.user.Id != "1")
-                {  @*$post->user->id == Auth::user()->id){*@
+                @if (Request.IsAuthenticated && Model.post.user.Id == User.Identity.GetUserId())
+                { 
                     <div class="text-right" style="margin-bottom: 50px;">
                         <a href="@Url.Action("Edit", "Posts", new { id = Model.post.id })" class="btn btn-primary">編輯</a>
                         <a href="@Url.Action("Delete", "Posts", new { id = Model.post.id })" class="btn btn-primary">刪除</a>
@@ -47,7 +48,7 @@
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>留下您的意見：</h4>
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm("Comment", "Posts",new { id=Model.post.id}))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
