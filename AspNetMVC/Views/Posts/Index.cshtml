@@ -1,7 +1,9 @@
-﻿@model IEnumerable<AspNetMVC.Models.Post>
-
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<AspNetMVC.Models.Post>
 @{
     ViewBag.Title = ViewBag.PostType;
+    var data=Model as IPagedList<AspNetMVC.Models.Post>;
 }
 
 <!-- Page Header -->
@@ -51,6 +53,7 @@
                 </div>
                 <hr>
             }
+            @Html.PagedListPager(data,Page=>Url.Action("Index",new { page= Page }))
             <!-- Pager -->
 
         </div>

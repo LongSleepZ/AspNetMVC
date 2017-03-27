@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using AspNetMVC.Models;
 using AspNetMVC.ViewModels;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace AspNetMVC.Controllers
 {
@@ -84,11 +85,11 @@ namespace AspNetMVC.Controllers
         }
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int page=1)
         {
             ViewBag.PostType = "文章總覽";
-            var posts= db.Posts.OrderByDescending(x => x.created_at);
-            return View(posts.ToList());
+            var posts = db.Posts.OrderByDescending(x => x.created_at);
+            return View(posts.ToPagedList(page, 5));
         }
 
         // GET: Posts/Details/5

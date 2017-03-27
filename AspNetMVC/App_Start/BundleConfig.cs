@@ -31,6 +31,7 @@ namespace AspNetMVC
                         "~/css/colReorder.bootstrap.min.css",
                         "~/css/font-awesome.min.css",
                         "~/css/clean-blog.min.css",
+                        "~/css/PagedList.css",
                         "~/css/site.css"));
         }
     }
